@@ -3,6 +3,12 @@
 //__________________ 9999999________________//
 
 //__________________ selecting elements________________//
+
+//player 0
+const player0El = document.querySelector('.player--0');
+//player 1
+const player1El = document.querySelector('.player--1');
+
 //player 0 score: specific by id (#); El = element
 const score0El = document.getElementById('score--0'); 
         //either one is OK// 
@@ -69,12 +75,18 @@ btnRoll.addEventListener('click', function () {
     } else {
         //as we switch the current player - we need to reset the current score for that player
         document.getElementById(`current--${activePlayer}`).textContent = 0;
+        currentScore = 0;
 
         // switch to next player: reassigning the active player
         activePlayer = activePlayer === 0 ? 1 : 0; 
-        currentScore = 0;
+
+        //background color will toggle between the players - current player will have a lighter bg of pink
+        player0El.classList.toggle('player--active');
+        player1El.classList.toggle('player--active');
 
     }
 });
+
+
 
 
