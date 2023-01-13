@@ -51,6 +51,9 @@ let currentScore = 0;
 // to track the current/active player:
 let activePlayer = 0; 
 
+// is game still playing? boolean value
+let playing = true; 
+
 // switch player function: reusable code no need to return anything
 const switchPlayer = function () {
     document.getElementById(`current--${activePlayer}`).textContent = 0;
@@ -66,25 +69,27 @@ const switchPlayer = function () {
 
 //__________________ rolling dice functionality________________//
 btnRoll.addEventListener('click', function () {
-    // 1. generate a random dice roll - each time we roll a dice, we want a new random number
-    const dice = Math.trunc(Math.random() * 6) + 1; 
-    console.log(dice);
+    if (playing) {
+          // 1. generate a random dice roll - each time we roll a dice, we want a new random number
+       const dice = Math.trunc(Math.random() * 6) + 1; 
 
-    // 2. display the dice
-    diceEl.classList.remove('hidden'); 
-    diceEl.src =`dice-${dice}.png`; // this dynamic manipulate the dice image and will display it at random 
+        // 2. display the dice
+        diceEl.classList.remove('hidden'); 
+        diceEl.src =`dice-${dice}.png`; // this dynamic manipulate the dice image and will display it at random 
 
-    // 3. check if roll is 1 ? if true, switch player
-    if(dice !== 1) {
+        // 3. check if roll is 1 ? if true, switch player
+        if(dice !== 1) {
         // add the dice to the current score - make sure it is outside of function handler 
         currentScore += dice; 
 
         //select current player dynamically and add score based on the dice number rolled:
-        document.getElementById(`current--${activePlayer}`).textContent = currentScore;
+        document.getElementById(`current--${activePlayer}`)
+        .textContent = currentScore;
 
         // then once current score will be added base on the dice number rolled - here is the display:
         // current0El.textContent = currentScore; // this only work for player 0
-
+    }
+  
     } else {
         switchPlayer(); 
         // instead of the below codes - wrote the switchPlayer function 
@@ -109,15 +114,23 @@ btnHold.addEventListener('click', function() {
     scores[activePlayer] += currentScore;
 
         // display the active player's score:
-    document.getElementById(`current--${activePlayer}`).textContent = scores[activePlayer];
+    document.getElementById(`score--${activePlayer}`)
+    .textContent = scores[activePlayer];
     
     // 2. check if player's score is >= 100 ? 
+    if (scores[activePlayer] >= 100) {
+              //  If yes, finish the game!
+        playing = false;  // flag that game is over - no btn should be click-able!
+        document.querySelector(`.player--${activePlayer}`)
+        .classList.add('play--winner');
+        document.querySelector(`.player--${activePlayer}`)
+        .classList.remove('play--active');
 
-    //  If yes, finish the game!
-
-    // if no, switch player
-    switchPlayer(); 
-})
+    } else {
+        // if no, switch player
+        switchPlayer(); 
+    }
+});
 
 //add current score to total score 
 
