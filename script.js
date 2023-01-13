@@ -42,14 +42,27 @@ score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden'); // dice is now hidden until 'btnRoll' is 'clicked'
 
-//final score that's accumulated - store in an array:
-let score = [0, 0]; 
+//final scores that's accumulated - store in an array:
+let scores = [0, 0]; 
 
 // currentScore needs to be outside/global so we can update it each time
 let currentScore = 0; 
 
 // to track the current/active player:
 let activePlayer = 0; 
+
+// switch player function: reusable code no need to return anything
+const switchPlayer = function () {
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    currentScore = 0;
+
+    // switch to next player: reassigning the active player
+    activePlayer = activePlayer === 0 ? 1 : 0; 
+
+    //background color will toggle between the players - current player will have a lighter bg of pink
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
+}
 
 //__________________ rolling dice functionality________________//
 btnRoll.addEventListener('click', function () {
@@ -73,20 +86,41 @@ btnRoll.addEventListener('click', function () {
         // current0El.textContent = currentScore; // this only work for player 0
 
     } else {
+        switchPlayer(); 
+        // instead of the below codes - wrote the switchPlayer function 
         //as we switch the current player - we need to reset the current score for that player
-        document.getElementById(`current--${activePlayer}`).textContent = 0;
-        currentScore = 0;
+        // document.getElementById(`current--${activePlayer}`).textContent = 0;
+        // currentScore = 0;
 
-        // switch to next player: reassigning the active player
-        activePlayer = activePlayer === 0 ? 1 : 0; 
+        // // switch to next player: reassigning the active player
+        // activePlayer = activePlayer === 0 ? 1 : 0; 
 
-        //background color will toggle between the players - current player will have a lighter bg of pink
-        player0El.classList.toggle('player--active');
-        player1El.classList.toggle('player--active');
+        // //background color will toggle between the players - current player will have a lighter bg of pink
+        // player0El.classList.toggle('player--active');
+        // player1El.classList.toggle('player--active');
 
     }
 });
 
 
+btnHold.addEventListener('click', function() {
+    // 1. add current score to active player's score
+     // scores[1] = scores[1] + currentScore; 
+    scores[activePlayer] += currentScore;
+
+        // display the active player's score:
+    document.getElementById(`current--${activePlayer}`).textContent = scores[activePlayer];
+    
+    // 2. check if player's score is >= 100 ? 
+
+    //  If yes, finish the game!
+
+    // if no, switch player
+    switchPlayer(); 
+})
+
+//add current score to total score 
+
+// when score is >= 100; current player wins!
 
 
