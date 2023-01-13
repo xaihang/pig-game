@@ -88,9 +88,7 @@ btnRoll.addEventListener('click', function () {
 
         // then once current score will be added base on the dice number rolled - here is the display:
         // current0El.textContent = currentScore; // this only work for player 0
-    }
-  
-    } else {
+        } else {
         switchPlayer(); 
         // instead of the below codes - wrote the switchPlayer function 
         //as we switch the current player - we need to reset the current score for that player
@@ -103,32 +101,33 @@ btnRoll.addEventListener('click', function () {
         // //background color will toggle between the players - current player will have a lighter bg of pink
         // player0El.classList.toggle('player--active');
         // player1El.classList.toggle('player--active');
-
-    }
+        }
+    }   
 });
 
 
 btnHold.addEventListener('click', function() {
-    // 1. add current score to active player's score
-     // scores[1] = scores[1] + currentScore; 
-    scores[activePlayer] += currentScore;
+    if(playing) {
+        // 1. add current score to active player's score
+        // scores[1] = scores[1] + currentScore; 
+        scores[activePlayer] += currentScore;
 
-        // display the active player's score:
-    document.getElementById(`score--${activePlayer}`)
-    .textContent = scores[activePlayer];
-    
-    // 2. check if player's score is >= 100 ? 
-    if (scores[activePlayer] >= 100) {
-              //  If yes, finish the game!
-        playing = false;  // flag that game is over - no btn should be click-able!
-        document.querySelector(`.player--${activePlayer}`)
-        .classList.add('play--winner');
-        document.querySelector(`.player--${activePlayer}`)
-        .classList.remove('play--active');
-
-    } else {
+         // display the active player's score:
+        document.getElementById(`score--${activePlayer}`)
+        .textContent = scores[activePlayer];
+ 
+        // 2. check if player's score is >= 100 ? 
+        if (scores[activePlayer] >= 100) {
+        //  If yes, finish the game!
+            playing = false;  // flag that game is over - no btn should be click-able!
+            document.querySelector(`.player--${activePlayer}`)
+            .classList.add('play--winner');
+            document.querySelector(`.player--${activePlayer}`)
+            .classList.remove('play--active');
+        } else {
         // if no, switch player
         switchPlayer(); 
+        }    
     }
 });
 
