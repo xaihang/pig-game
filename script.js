@@ -121,6 +121,7 @@ btnHold.addEventListener('click', function() {
         //  If yes, finish the game!
             playing = false;  // flag that game is over - no btn should be click-able!
             diceEl.classList.add('hidden');
+            console.log('score of 100', playing,scores[activePlayer] >= 100 );
             
             document.querySelector(`.player--${activePlayer}`)
             .classList.add('play--winner');
