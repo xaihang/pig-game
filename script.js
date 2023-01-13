@@ -120,19 +120,18 @@ btnHold.addEventListener('click', function() {
         if (scores[activePlayer] >= 100) {
         //  If yes, finish the game!
             playing = false;  // flag that game is over - no btn should be click-able!
+            diceEl.classList.add('hidden');
+            
             document.querySelector(`.player--${activePlayer}`)
             .classList.add('play--winner');
             document.querySelector(`.player--${activePlayer}`)
             .classList.remove('play--active');
         } else {
-        // if no, switch player
-        switchPlayer(); 
+            // if no, switch player
+            switchPlayer(); 
         }    
     }
 });
 
-//add current score to total score 
-
-// when score is >= 100; current player wins!
 
 
