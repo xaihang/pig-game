@@ -36,8 +36,14 @@ score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden'); // dice is now hidden until 'btnRoll' is 'clicked'
 
+//final score that's accumulated - store in an array:
+let score = [0, 0]; 
+
 // currentScore needs to be outside/global so we can update it each time
 let currentScore = 0; 
+
+// to track the current/active player:
+let activePlayer = 0; 
 
 //__________________ rolling dice functionality________________//
 btnRoll.addEventListener('click', function () {
@@ -53,10 +59,22 @@ btnRoll.addEventListener('click', function () {
     if(dice !== 1) {
         // add the dice to the current score - make sure it is outside of function handler 
         currentScore += dice; 
+
+        //select current player dynamically and add score based on the dice number rolled:
+        document.getElementById(`current--${activePlayer}`).textContent = currentScore;
+
         // then once current score will be added base on the dice number rolled - here is the display:
-        current0El.textContent = currentScore; // CHANGE LATER
+        // current0El.textContent = currentScore; // this only work for player 0
+
     } else {
-        // switch to next player:
+        //as we switch the current player - we need to reset the current score for that player
+        document.getElementById(`current--${activePlayer}`).textContent = 0;
+
+        // switch to next player: reassigning the active player
+        activePlayer = activePlayer === 0 ? 1 : 0; 
+        currentScore = 0;
 
     }
 });
+
+
