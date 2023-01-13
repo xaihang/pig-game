@@ -7,4 +7,4 @@
 
 
 #### Screenshot of application:
-![app demo image](/screenshot.png)# pig-game
+![app demo image](/screenshot.png)
