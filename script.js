@@ -65,7 +65,7 @@ const switchPlayer = function () {
     //background color will toggle between the players - current player will have a lighter bg of pink
     player0El.classList.toggle('player--active');
     player1El.classList.toggle('player--active');
-}
+};
 
 //__________________ rolling dice functionality________________//
 btnRoll.addEventListener('click', function () {
@@ -79,17 +79,17 @@ btnRoll.addEventListener('click', function () {
 
         // 3. check if roll is 1 ? if true, switch player
         if(dice !== 1) {
-        // add the dice to the current score - make sure it is outside of function handler 
-        currentScore += dice; 
+            // add the dice to the current score - make sure it is outside of function handler 
+            currentScore += dice; 
 
-        //select current player dynamically and add score based on the dice number rolled:
-        document.getElementById(`current--${activePlayer}`)
-        .textContent = currentScore;
+            //select current player dynamically and add score based on the dice number rolled:
+            document.getElementById(`current--${activePlayer}`)
+            .textContent = currentScore;
 
         // then once current score will be added base on the dice number rolled - here is the display:
         // current0El.textContent = currentScore; // this only work for player 0
         } else {
-        switchPlayer(); 
+            switchPlayer(); 
         // instead of the below codes - wrote the switchPlayer function 
         //as we switch the current player - we need to reset the current score for that player
         // document.getElementById(`current--${activePlayer}`).textContent = 0;
