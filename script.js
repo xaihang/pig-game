@@ -37,22 +37,29 @@ const btnHold = document.querySelector('.btn--hold');
 
 
 //__________________ starting conditions________________//
-        //  display settings at the very beginning:
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add('hidden'); // dice is now hidden until 'btnRoll' is 'clicked'
 
-//final scores that's accumulated - store in an array:
-let scores = [0, 0]; 
+// init function - reset the game: 
+const init = function() {
+    //final scores that's accumulated - store in an array:
+    let scores = [0, 0]; 
+    // currentScore needs to be outside/global so we can update it each time
+    let currentScore = 0; 
+    // to track the current/active player:
+    let activePlayer = 0; 
+    // is game still playing? boolean value
+    let playing = true; 
+           //  display settings at the very beginning:
+    score0El.textContent = 0;
+    score1El.textContent = 0;
+    current0El.textContent = 0;
+    current1El.textContent = 0;
 
-// currentScore needs to be outside/global so we can update it each time
-let currentScore = 0; 
-
-// to track the current/active player:
-let activePlayer = 0; 
-
-// is game still playing? boolean value
-let playing = true; 
+    diceEl.classList.add('hidden'); // dice is now hidden until 'btnRoll' is 'clicked'
+    player0El.classList.remove('player--winner');
+    player1El.classList.remove('player--winner');
+    player0El.classList.add('player--active');
+    player1El.classList.remove('player--active');
+}
 
 // switch player function: reusable code no need to return anything
 const switchPlayer = function () {
@@ -66,6 +73,7 @@ const switchPlayer = function () {
     player0El.classList.toggle('player--active');
     player1El.classList.toggle('player--active');
 };
+init(); 
 
 //__________________ rolling dice functionality________________//
 btnRoll.addEventListener('click', function () {
@@ -137,16 +145,9 @@ btnHold.addEventListener('click', function() {
 
 //resetting the game:
 btnNew.addEventListener('click', function() {
-    score0El.textContent = 0;
-    score1El.textContent = 0;
-    current0El.textContent = 0;
-    current1El.textContent = 0;
-    player0El.classList.remove('player--winner');
-    player1El.classList.remove('player--winner');
-    player0El.classList.add('player--active');
-    player1El.classList.remove('player--active');
+    
 })
 
-//set internal state to initial stage:
+//set internal state to initial stage aka initialization  (init)
 
 
