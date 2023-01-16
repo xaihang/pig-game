@@ -1,7 +1,5 @@
 'use strict';
 
-//__________________ 9999999________________//
-
 //__________________ selecting elements________________//
 
 //player 0
@@ -35,31 +33,37 @@ const btnRoll = document.querySelector('.btn--roll')
 //  hold button:
 const btnHold = document.querySelector('.btn--hold');
 
+// global variables:
+let scores, currentScore, activePlayer, playing; 
 
 //__________________ starting conditions________________//
-
 // init function - reset the game: 
 const init = function() {
     //final scores that's accumulated - store in an array:
-    let scores = [0, 0]; 
+    scores = [0, 0]; 
     // currentScore needs to be outside/global so we can update it each time
-    let currentScore = 0; 
+    currentScore = 0; 
     // to track the current/active player:
-    let activePlayer = 0; 
+    activePlayer = 0; 
     // is game still playing? boolean value
-    let playing = true; 
-           //  display settings at the very beginning:
+    playing = true; 
+
+    //  display settings at the very beginning:
     score0El.textContent = 0;
     score1El.textContent = 0;
     current0El.textContent = 0;
     current1El.textContent = 0;
 
-    diceEl.classList.add('hidden'); // dice is now hidden until 'btnRoll' is 'clicked'
+    // hide dice until 'btnRoll' is 'clicked':
+    diceEl.classList.add('hidden'); 
+
     player0El.classList.remove('player--winner');
     player1El.classList.remove('player--winner');
     player0El.classList.add('player--active');
     player1El.classList.remove('player--active');
-}
+};
+init(); 
+
 
 // switch player function: reusable code no need to return anything
 const switchPlayer = function () {
@@ -73,7 +77,6 @@ const switchPlayer = function () {
     player0El.classList.toggle('player--active');
     player1El.classList.toggle('player--active');
 };
-init(); 
 
 //__________________ rolling dice functionality________________//
 btnRoll.addEventListener('click', function () {
@@ -129,7 +132,6 @@ btnHold.addEventListener('click', function() {
         //  If yes, finish the game!
             playing = false;  // flag that game is over - no btn should be click-able!
             diceEl.classList.add('hidden');
-            console.log('score of 100', playing,scores[activePlayer] >= 100 );
             
             document.querySelector(`.player--${activePlayer}`)
             .classList.add('play--winner');
@@ -144,10 +146,7 @@ btnHold.addEventListener('click', function() {
 
 
 //resetting the game:
-btnNew.addEventListener('click', function() {
-    
-})
+btnNew.addEventListener('click', init); 
 
-//set internal state to initial stage aka initialization  (init)
 
 
